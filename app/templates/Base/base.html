@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    {% if title %}
+        <title>Zee - {{ title }}</title>
+    {% else %}
+        <title>Zee</title>
+    {% endif %}
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- mobile specific metas
+    ================================================== -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <script type="application/x-javascript"> addEventListener("load", function () {
+        setTimeout(hideURLbar, 0);
+    }, false);
+
+    function hideURLbar() {
+        window.scrollTo(0, 1);
+    } </script>
+    <!-- Custom Theme files -->
+    <link href="/static/css/font-awesome.min.css" rel="stylesheet" type="text/css" media="all">
+    <link href="/static/css/snow.css" rel="stylesheet" type="text/css" media="all"/>
+    <link href="/static/css/style.css" rel="stylesheet" type="text/css" media="all"/>
+    <link href="/static/css/user.css" rel="stylesheet" type="text/css" >
+    <!-- //Custom Theme files -->
+    <!-- web font -->
+    <!--<link href="//fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">-->
+
+    <!-- //web font -->
+</head>
+<body>
+
+<div class="snow-container">
+    <div class="snow foreground"></div>
+    <div class="snow foreground layered"></div>
+    <div class="snow middleground"></div>
+    <div class="snow middleground layered"></div>
+    <div class="snow background"></div>
+    <div class="snow background layered"></div>
+</div>
+
+<div class="top-buttons-agileinfo">
+    <a href="{{ url_for('login') }}" class="active">登录</a><a href="{{ url_for('register') }}">注册</a>
+</div>
+<h1>Zee's {{ title }}</h1>
+<div class="main-agileits">
+    <!--form-stars-here-->
+    {% block form %}{% endblock %}
+</div>
+
+<div class="copyright w3-agile">
+    <p><a>All Rights Reserved For Zerkvii©2018-2020 </a></p>
+</div>
+
+<script src="/static/js/jquery-3.2.1.min.js"></script>
+<script src="/static/js/plugins.js"></script>
+<script src="/static/js/main.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,127 @@
+{% extends 'Base/layout.html' %}
+{% block header %}
+    <div class="pageheader-content row">
+        <div class="col-full">
+            <div class="featured">
+                <div class="featured__column featured__column--big">
+                    <div class="entry"
+                         style="background-image:url('{{ headline.content }}');">
+                        <div class="entry__content">
+                            <span class="entry__category"><a href="#0">{{ headline.get_category() }}</a></span>
+                            <h1><a href="#0" title="">{{ headline.title }}</a></h1>
+                            <div class="entry__info">
+                                <a href="#0" class="entry__profile-pic">
+                                    <img class="avatar" src="/static/websrcs/photos/{{ headline.author.image }}"
+                                         alt="{{ url_for('contact') }}">
+                                </a>
+
+                                <ul class="entry__meta">
+                                    <li><a href="#0">{{ headline.author.username }}</a></li>
+                                    <li>{{ headline.date }}</li>
+                                </ul>
+                            </div>
+                        </div> <!-- end entry__content -->
+                    </div> <!-- end entry -->
+                </div> <!-- end featured__big -->
+                <div class="featured__column featured__column--small">
+                    {% for entry in entries %}
+                        <div class="entry"
+                             style="background-image:url('{{ entry.content }}');">
+                            <div class="entry__content">
+                                <span class="entry__category"><a href="#0">{{ entry.get_category() }}</a></span>
+                                <h1><a href="#0" title="">{{ entry.title }}</a></h1>
+                                <div class="entry__info">
+                                    <ul class="entry__meta">
+                                        <li><a href="{{ url_for('account') }}">{{ entry.author.username }}</a></li>
+                                        <li>{{ entry.date }}</li>
+                                    </ul>
+                                </div>
+                            </div> <!-- end entry__content -->
+                        </div> <!-- end entry -->
+                    {% endfor %}
+                </div> <!-- end featured__small -->
+            </div> <!-- end featured -->
+        </div> <!-- end col-full -->
+    </div> <!-- end pageheader-content row -->
+{% endblock %}
+
+{% block content %}
+    <section class="s-content">
+
+        <div class="row masonry-wrap">
+            <div class="masonry">
+
+                <div class="grid-sizer"></div>
+
+                {% for article in articles.items %}
+                    <article class="masonry__brick entry format-standard" data-aos="fade-up">
+
+                        <div class="entry__thumb">
+                            <a href="{{ url_for(article.get_post_link) }}" class="entry__thumb-link">
+                                <img src="{{ article.content }}" alt="">
+                            </a>
+                        </div>
+                        <div class="entry__text">
+                            <div class="entry__header">
+
+                                <div class="entry__date">
+                                    <a href="{{ url_for(article.get_post_link) }}">{{ article.date }}</a>
+                                </div>
+                                <h1 class="entry__title"><a
+                                        href="{{ url_for(article.get_post_link) }}">{{ article.title }}</a>
+                                </h1>
+                            </div>
+                            <div class="entry__excerpt">
+                                <p>
+                                    {{ article.discription }}
+                                </p>
+                            </div>
+                            <div class="entry__meta">
+                            <span class="entry__meta-links">
+                                <a href="{{ article.get_category_link }}">{{ article.get_category }}</a>
+                                <a href="{{ article.get_type_link }}">{{ article.get_post_type }}</a>
+                            </span>
+                            </div>
+                        </div>
+
+                    </article> <!-- end article -->
+                {% endfor %}
+
+            </div> <!-- end masonry -->
+        </div> <!-- end masonry-wrap -->
+
+        <div class="row">
+            <div class="col-full">
+                <nav class="pgn">
+                    <ul>
+                        <li><a class="pgn__prev" href="#0">Prev</a></li>
+                        <li><a class="pgn__num" href="#0">1</a></li>
+                        <li><span class="pgn__num current">2</span></li>
+                        <li><a class="pgn__num" href="#0">3</a></li>
+                        <li><a class="pgn__num" href="#0">4</a></li>
+                        <li><a class="pgn__num" href="#0">5</a></li>
+                        <li><span class="pgn__num dots">…</span></li>
+                        <li><a class="pgn__num" href="#0">8</a></li>
+                        <li><a class="pgn__next" href="#0">Next</a></li>
+                    </ul>
+                    <li><a class="pgn__prev" href="{{ url_for('users.user_posts',  page=page_num) }}">上一页</a></li>
+                    {% for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+                        {% if page_num %}
+                            {% if posts.page == page_num %}
+                                <li><span class="pgn__num current">{{ page_num }}</span></li>
+                            {% else %}
+                                <li><a class="pgn__num" href="{{ url_for('users.user_posts',  page=page_num) }}"></a>
+                                </li>
+                            {% endif %}
+                        {% else %}
+                            <li><span class="pgn__num dots">. . .</span></li>
+                        {% endif %}
+                    {% endfor %}
+                    <li><a class="pgn__next" href="#0">下一页</a></li>
+                </nav>
+            </div>
+        </div>
+
+    </section> <!-- s-content -->
+
+{% endblock %}

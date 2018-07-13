@@ -1,0 +1,55 @@
+{% extends 'Base/base.html' %}
+{% block form %}
+    <div class="form-w3-agile">
+        <h2 class="sub-agileits-w3layouts">注册</h2>
+        <form method="POST" action="">
+            {{ form.csrf_token }}
+            {% if form.username.errors %}
+                {{ form.username(placeholder="用户名") }}
+                <div class="error-display">
+                    {% for error in form.username.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% else %}
+                {{ form.username(placeholder="用户名") }}
+            {% endif %}
+            {{ form.csrf_token }}
+            {% if form.email.errors %}
+                {{ form.email(placeholder="邮箱") }}
+                <div class="error-display">
+                    {% for error in form.email.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% else %}
+                {{ form.email(placeholder="邮箱") }}
+            {% endif %}
+            {{ form.csrf_token }}
+            {% if form.password.errors %}
+                {{ form.password(placeholder="密码") }}
+                <div class="error-display">
+                    {% for error in form.password.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% else %}
+                {{ form.password(placeholder="密码") }}
+            {% endif %}
+            {{ form.csrf_token }}
+            {% if form.confirm_password.errors %}
+                {{ form.confirm_password(placeholder="确认密码") }}
+                <div class="error-display">
+                    {% for error in form.confirm_password.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% else %}
+                {{ form.confirm_password(placeholder="确认密码") }}
+            {% endif %}
+            <div class="submit-w3l">
+                <input type="submit" value="注册">
+            </div>
+        </form>
+    </div>
+{% endblock %}
