@@ -8,15 +8,18 @@ from utils import get_specified_post
 
 
 @app.route('/')
-@app.route('/index')
+@app.route('/index/')
 def index():
     headline = Post.query.all()[0]
     list_size = len(Post.query.all())
     fir = random.randint(2, list_size)
     sec = random.randint(2, fir)
     entries = [get_specified_post(fir), get_specified_post(sec)]
+    print('hello')
+    page = request.args.get('page', 1, type=int)
+    posts = Post.query.paginate(page=page, per_page=8)
     return render_template('main/index.html', title='主页', headline=headline,
-                           entries=entries)
+                           entries=entries, posts=posts)
 
 
 @app.route('/account')
@@ -34,7 +37,7 @@ def contact():
     return render_template('main/contact.html', title='联系')
 
 
-@app.route("/register", methods=['GET', 'POST'])
+@app.route('/register', methods=['GET', 'POST'])
 def register():
     form = RegistrationForm()
     if form.validate_on_submit():
@@ -47,7 +50,7 @@ def register():
     return render_template('auth/register.html', title='注册', form=form)
 
 
-@app.route("/login", methods=['GET', 'POST'])
+@app.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
     if form.validate_on_submit():
@@ -62,6 +65,24 @@ def login():
         else:
             flash('登录失败，请检查账号或者密码', 'warn')
     return render_template('auth/login.html', title='登录', form=form)
+
+
+@app.route('/collections/<int:post_id>')
+def collection(post_id):
+    article = Post.query.filter_by(id=post_id).first_or_404()
+    return render_template('main/collection.html', article=article)
+
+
+@app.route('/category/<int:post_category>')
+def category(post_category):
+    article = Post.query.filter_by(category=post_category).first_or_404()
+    return render_template('main/index.html')
+
+
+@app.route('/post/<int:post_type>')
+def post(post_type):
+    article = Post.query.filter_by(post_type=post_type).first_or_404()
+    return render_template('main/index.html')
 
 
 @app.route('/posts/videos')

@@ -53,75 +53,318 @@
 
                 <div class="grid-sizer"></div>
 
-                {% for article in articles.items %}
-                    <article class="masonry__brick entry format-standard" data-aos="fade-up">
+                {% for post in posts.items %}
+                    {% if post.post_type==0 %}
+                        <article class="masonry__brick entry format-video" data-aos="fade-up">
 
-                        <div class="entry__thumb">
-                            <a href="{{ url_for(article.get_post_link) }}" class="entry__thumb-link">
-                                <img src="{{ article.content }}" alt="">
-                            </a>
-                        </div>
-                        <div class="entry__text">
-                            <div class="entry__header">
+                            <div class="entry__thumb video-image">
+                                <a href="{{ post.content }}" data-lity>
+                                    <img src="{{ post.get_video_shotcut() }}" alt="">
+                                </a>
+                            </div>
+                            <div class="entry__text">
+                                <div class="entry__header">
+                                    <div class="entry__date">
+                                        <a href="{{ url_for('collection',post_id=post.id) }}">{{ post.date }}</a>
+                                    </div>
+                                    <h1 class="entry__title"><a
+                                            href="{{ url_for('collection',post_id=post.id) }}">{{ post.title }}</a></h1>
 
-                                <div class="entry__date">
-                                    <a href="{{ url_for(article.get_post_link) }}">{{ article.date }}</a>
                                 </div>
-                                <h1 class="entry__title"><a
-                                        href="{{ url_for(article.get_post_link) }}">{{ article.title }}</a>
-                                </h1>
-                            </div>
-                            <div class="entry__excerpt">
-                                <p>
-                                    {{ article.discription }}
-                                </p>
-                            </div>
-                            <div class="entry__meta">
+                                <div class="entry__excerpt">
+                                    <p>
+                                        {{ post.description }}
+                                    </p>
+                                </div>
+                                <div class="entry__meta">
                             <span class="entry__meta-links">
-                                <a href="{{ article.get_category_link }}">{{ article.get_category }}</a>
-                                <a href="{{ article.get_type_link }}">{{ article.get_post_type }}</a>
+                               <a href="{{ url_for('category',post_category=post.category) }}">{{ post.get_category() }}</a>
+                                <a href="{{ url_for('post',post_type=post.post_type) }}">{{ post.get_post_type() }}</a>
                             </span>
+                                </div>
                             </div>
-                        </div>
 
-                    </article> <!-- end article -->
+                        </article> <!-- end article -->
+                    {% elif post.post_type==1 %}
+                        <article class="masonry__brick entry format-audio" data-aos="fade-up">
+
+                            <div class="entry__thumb">
+                                <a href="{{ url_for('collection',post_id=post.id) }}" class="entry__thumb-link">
+                                    <img src="{{ post.get_audio_shotcut() }}" alt="">
+                                </a>
+                                <div class="audio-wrap">
+                                    <audio id="player" src="{{ post.content }}" width="100%" height="42"
+                                           controls="controls"></audio>
+                                </div>
+                            </div>
+
+                            <div class="entry__text">
+                                <div class="entry__header">
+
+                                    <div class="entry__date">
+                                        <a href="{{ url_for('collection',post_id=post.id) }}">{{ post.date }}</a>
+                                    </div>
+                                    <h1 class="entry__title"><a
+                                            href="{{ url_for('collection',post_id=post.id) }}">{{ post.title }}</a></h1>
+
+                                </div>
+                                <div class="entry__excerpt">
+                                    <p>
+                                        {{ post.description }}
+                                    </p>
+                                </div>
+                                <div class="entry__meta">
+                            <span class="entry__meta-links">
+                                <a href="{{ url_for('category',post_category=post.category) }}">{{ post.get_category() }}</a>
+                                <a href="{{ url_for('post',post_type=post.post_type) }}">{{ post.get_post_type() }}</a>
+                            </span>
+                                </div>
+                            </div>
+
+                        </article> <!-- end article -->
+                    {% elif post.post_type==2 %}
+                        <article class="masonry__brick entry format-gallery" data-aos="fade-up">
+
+                            <div class="entry__thumb slider">
+                                <div class="slider__slides">
+                                    {% for img in post.get_gallery() %}
+                                        <div class="slider__slide">
+                                            <img src="{{ img }}"
+                                                 alt="">
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="entry__text">
+                                <div class="entry__header">
+
+                                    <div class="entry__date">
+                                        <a href="{{ url_for('collection',post_id=post.id) }}">{{ post.date }}</a>
+                                    </div>
+                                    <h1 class="entry__title"><a
+                                            href="{{ url_for('collection',post_id=post.id) }}">{{ post.title }}</a>
+                                    </h1>
+
+                                </div>
+                                <div class="entry__excerpt">
+                                    <p>
+                                        {{ post.description }}
+                                    </p>
+                                </div>
+                                <div class="entry__meta">
+                            <span class="entry__meta-links">
+                              <a href="{{ url_for('category',post_category=post.category) }}">{{ post.get_category() }}</a>
+                                <a href="{{ url_for('post',post_type=post.post_type) }}">{{ post.get_post_type() }}</a>
+                            </span>
+                                </div>
+                            </div>
+
+                        </article> <!-- end article -->
+                    {% elif post.post_type==3 %}
+                        <article class="masonry__brick entry format-standard" data-aos="fade-up">
+
+                            <div class="entry__thumb">
+                                <a href="{{ url_for('collection',post_id=post.id) }}" class="entry__thumb-link">
+                                    <img src="{{ post.content }}" alt="">
+                                </a>
+                            </div>
+                            <div class="entry__text">
+                                <div class="entry__header">
+
+                                    <div class="entry__date">
+                                        <a href="{{ url_for('collection',post_id=post.id) }}">{{ post.date }}</a>
+                                    </div>
+                                    <h1 class="entry__title"><a
+                                            href="{{ url_for('collection',post_id=post.id) }}">{{ post.title }}</a>
+                                    </h1>
+                                </div>
+                                <div class="entry__excerpt">
+                                    <p>
+                                        {{ post.description }}
+                                    </p>
+                                </div>
+                                <div class="entry__meta">
+                            <span class="entry__meta-links">
+                                <a href="{{ url_for('category',post_category=post.category) }}">{{ post.get_category() }}</a>
+                                <a href="{{ url_for('post',post_type=post.post_type) }}">{{ post.get_post_type() }}</a>
+                            </span>
+                                </div>
+                            </div>
+
+                        </article> <!-- end article -->
+                    {% else %}
+                        <article class="masonry__brick entry format-quote" data-aos="fade-up">
+
+                            <div class="entry__thumb">
+                                <blockquote>
+                                    <p>{{ post.content }}</p>
+                                    <cite>{{ post.author.username }}</cite>
+                                </blockquote>
+                            </div>
+                        </article> <!-- end article -->
+                    {% endif %}
                 {% endfor %}
 
             </div> <!-- end masonry -->
         </div> <!-- end masonry-wrap -->
-
         <div class="row">
             <div class="col-full">
                 <nav class="pgn">
                     <ul>
-                        <li><a class="pgn__prev" href="#0">Prev</a></li>
-                        <li><a class="pgn__num" href="#0">1</a></li>
-                        <li><span class="pgn__num current">2</span></li>
-                        <li><a class="pgn__num" href="#0">3</a></li>
-                        <li><a class="pgn__num" href="#0">4</a></li>
-                        <li><a class="pgn__num" href="#0">5</a></li>
-                        <li><span class="pgn__num dots">…</span></li>
-                        <li><a class="pgn__num" href="#0">8</a></li>
-                        <li><a class="pgn__next" href="#0">Next</a></li>
-                    </ul>
-                    <li><a class="pgn__prev" href="{{ url_for('users.user_posts',  page=page_num) }}">上一页</a></li>
-                    {% for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
-                        {% if page_num %}
-                            {% if posts.page == page_num %}
-                                <li><span class="pgn__num current">{{ page_num }}</span></li>
+                        <li><a class="pgn__prev"
+                               href="
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                       {% if posts.has_prev %}{{ url_for('index',  page=posts.prev_num) }}{% endif %}"></a>
+                        </li>
+                        {% for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+                            {% if page_num %}
+                                {% if posts.page == page_num %}
+                                    <li><span class="pgn__num current">{{ page_num }}</span></li>
+                                {% else %}
+                                    <li><a class="pgn__num"
+                                           href="{{ url_for('index',  page=page_num) }}">{{ page_num }}</a>
+                                    </li>
+                                {% endif %}
                             {% else %}
-                                <li><a class="pgn__num" href="{{ url_for('users.user_posts',  page=page_num) }}"></a>
-                                </li>
+                                <li><span class="pgn__num dots">. . .</span></li>
                             {% endif %}
-                        {% else %}
-                            <li><span class="pgn__num dots">. . .</span></li>
-                        {% endif %}
-                    {% endfor %}
-                    <li><a class="pgn__next" href="#0">下一页</a></li>
+                        {% endfor %}
+                        <li><a class="pgn__next"
+                               href="
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                       {% if posts.has_next %}{{ url_for('index',  page=posts.next_num) }}{% endif %}"></a>
+                        </li>
+                    </ul>
                 </nav>
             </div>
         </div>
 
     </section> <!-- s-content -->
+    <footer class="s-footer">
+
+        <div class="s-footer__main">
+            <div class="row">
+
+                <div class="col-two md-four mob-full s-footer__sitelinks">
+
+                    <h4>Quick Links</h4>
+
+                    <ul class="s-footer__linklist">
+                        <li><a href="{{ url_for('index') }}">主页</a></li>
+                        <li><a href="#0">Blog</a></li>
+                        <li><a href="#0">Styles</a></li>
+                        <li><a href="#0">About</a></li>
+                        <li><a href="#0">Contact</a></li>
+                        <li><a href="#0">Privacy Policy</a></li>
+                    </ul>
+
+                </div> <!-- end s-footer__sitelinks -->
+
+                <div class="col-two md-four mob-full s-footer__archives">
+
+                    <h4>时间索引</h4>
+
+                    <ul class="s-footer__linklist">
+                        <li><a href="#0">1月 2018</a></li>
+                        <li><a href="#0">12月 2017</a></li>
+                        <li><a href="#0">11月 2017</a></li>
+                        <li><a href="#0">10月 2017</a></li>
+                        <li><a href="#0">9月 2017</a></li>
+                        <li><a href="#0">10月 2017</a></li>
+                    </ul>
+
+                </div> <!-- end s-footer__archives -->
+
+                <div class="col-two md-four mob-full s-footer__social">
+
+                    <h4>社交</h4>
+
+                    <ul class="s-footer__linklist">
+                        <li>
+                            <a href="https://weibo.com/3819860475/profile"><i class="fa fa-weibo"
+                                                                              aria-hidden="true"></i></a>
+                        </li>
+                        <li>
+                            <a href="https://www.instagram.com/lyricly1/"><i class="fa fa-instagram"
+                                                                             aria-hidden="true"></i></a>
+                        </li>
+                        <li>
+                            <a href="https://www.pinterest.com/zerkvii/"><i class="fa fa-pinterest-square"
+                                                                            aria-hidden="true"></i></a>
+                        </li>
+                        <li>
+                            <a href="https://github.com/zerkvii"><i class="fa fa-github-square" aria-hidden="true"></i></a>
+                        </li>
+                    </ul>
+
+                </div> <!-- end s-footer__social -->
+
+                <div class="col-five md-full end s-footer__subscribe">
+
+                    <h4>我们的通讯地址</h4>
+
+                    <p>欢迎任何关于我们产品的反馈，我们（我）将在第一时间反馈</p>
+
+                    <div class="subscribe-form">
+                        <form id="mc-form" class="group" novalidate="true">
+
+                            <input type="email" value="" name="EMAIL" class="email" id="mc-email"
+                                   placeholder="发送邮件地址" required="">
+
+                            <input type="submit" name="subscribe" value="Send">
+
+                            <label for="mc-email" class="subscribe-message"></label>
+
+                        </form>
+                    </div>
+
+                </div> <!-- end s-footer__subscribe -->
+
+            </div>
+        </div> <!-- end s-footer__main -->
+
+        <div class="s-footer__bottom">
+            <div class="row">
+                <div class="col-full">
+                    <div class="s-footer__copyright">
+                        <span>© Copyright zerkvii@gmail 2018</span>
+                    </div>
+
+                    <div class="go-top">
+                        <a class="smoothscroll" title="Back to Top" href="#top"></a>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- end s-footer__bottom -->
+
+    </footer> <!-- end s-footer -->
 
 {% endblock %}

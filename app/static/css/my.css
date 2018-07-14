@@ -1464,7 +1464,7 @@ button::-moz-focus-inner, input::-moz-focus-inner {
 .masonry .entry__thumb-link::before {
    content: "";
    display: block;
-   background: rgba(0, 0, 0, 0.8);
+   background: rgba(0, 0, 0, 0.4);
    opacity: 0;
    visibility: hidden;
    position: absolute;
@@ -1517,9 +1517,9 @@ button::-moz-focus-inner, input::-moz-focus-inner {
 }
 
 .masonry .entry__thumb:hover .entry__thumb-link img {
-   -webkit-transform: scale(1.05);
-   -ms-transform: scale(1.05);
-   transform: scale(1.05);
+   -webkit-transform: scale(1.25);
+   -ms-transform: scale(1.25);
+   transform: scale(1.25);
 }
 
 .masonry .entry__text {
@@ -1741,7 +1741,7 @@ button::-moz-focus-inner, input::-moz-focus-inner {
 }
 
 .s-pageheader--home {
-   min-height: 480px;
+   /*min-height: 480px;*/
    padding-top: 222px;
 }
 

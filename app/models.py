@@ -1,4 +1,4 @@
-from . import db,login_manager
+from . import db, login_manager
 from datetime import datetime
 from flask_login import UserMixin
 
@@ -41,5 +41,17 @@ class Post(db.Model):
         return dict[self.category]
 
     def get_post_type(self):
-        dict = ['视频', '声音', '相册', '文字']
+        dict = ['视频', '声音', '相册', '图文', '文字']
         return dict[self.post_type]
+
+    def get_video_shotcut(self):
+        return 'https://cdn.dribbble.com/users/63509/screenshots/2298757/mobileplayerlogo.gif'
+
+    def get_audio_shotcut(self):
+        return 'https://images.unsplash.com/photo-1485579149621-3' \
+               '123dd979885?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&' \
+               's=bdad9431efc1a4481ac8a264d7c33a61&w=1000&q=80'
+
+    def get_gallery(self):
+        alist = []
+        return alist
